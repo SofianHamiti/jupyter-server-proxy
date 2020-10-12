@@ -219,6 +219,12 @@ class ProxyHandler(WebSocketHandlerMixin, IPythonHandler):
             else:
                 body = None
 
+        if self.request.method in ['POST', 'PUT', 'PATCH']:
+            self.log.debug('{}, headers: {}'.format(self.request.method, self.request.headers))
+            if 'Transfer-Encoding' in self.request.headers:
+                self.log.info('Removing Transfer-Encoding from the request header')
+                del self.request.headers['Transfer-Encoding']
+
         client = httpclient.AsyncHTTPClient()
 
         req = self._build_proxy_request(host, port, proxied_path, body)
