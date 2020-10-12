@@ -5,3 +5,9 @@ node_modules
 dist
 .vscode
 package-lock.json
+
+
+.idea/
+deploy/
+test/
+**/.DS_Store
